@@ -1,5 +1,5 @@
 import React from "react"
-import { Route } from "react-router-dom"
+import { Route, Router } from "react-router-dom"
 import { LocationProvider } from "./location/LocationProvider"
 import { AnimalProvider } from "./animal/AnimalProvider"
 import { LocationList } from "./location/LocationList"
@@ -8,6 +8,7 @@ import { EmployeeProvider } from "./employee/EmployeeProvider"
 import { EmployeeList } from "./employee/EmployeeList"
 import { CustomerProvider } from "./customer/CustomerProvider"
 import { CustomerList } from "./customer/CustomerList"
+import { EmployeeForm } from "./employee/EmployeeForm"
 
 export const ApplicationViews = (props) => {
     return (
@@ -30,9 +31,15 @@ export const ApplicationViews = (props) => {
             </AnimalProvider>
             <EmployeeProvider>
                 <LocationProvider>
-                    <Route path="/employees">
-                        <EmployeeList />
-                    </Route>
+                    <AnimalProvider>
+                        <Route exact path="/employees" render={
+                            props => <EmployeeList {...props} />
+                        } />
+                        <Route exact path="/employees/create" render={
+                            props => <EmployeeForm {...props} />
+                        } >
+                        </Route>
+                    </AnimalProvider>
                 </LocationProvider>
             </EmployeeProvider>
             <CustomerProvider>
