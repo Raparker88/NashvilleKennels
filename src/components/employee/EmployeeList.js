@@ -10,7 +10,7 @@ export const EmployeeList = (props) => {
 
     return (
         <div className="employees">
-            <h1>Employees</h1>
+            <h2>Employees</h2>
             <button onClick={() => props.history.push("/employees/create")}>
                 Add Employee
             </button>
