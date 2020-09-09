@@ -11,6 +11,7 @@ export const AnimalContext = React.createContext()
  */
 export const AnimalProvider = (props) => {
     const [animals, setAnimals] = useState([])
+    const [searchTerms, setTerms] = useState("")
 
     const getAnimals = () => {
         return fetch("http://localhost:8088/animals")
@@ -28,22 +29,20 @@ export const AnimalProvider = (props) => {
         })
             .then(getAnimals)
     }
+    const getAnimalById = (id) => {
+        return fetch(`http://localhost:8088/animals/${ id }?_expand=location&_expand=customer`)
+            .then(res => res.json())
+    }
 
     /*
         Load all animals when the component is mounted. Ensure that
         an empty array is the second argument to avoid infinite loop.
     */
-    useEffect(() => {
-        getAnimals()
-    }, [])
 
-    useEffect(() => {
-        console.log("****  Animal APPLICATION STATE CHANGED  ****")
-    }, [animals])
 
     return (
         <AnimalContext.Provider value={{
-            animals, addAnimal, getAnimals
+            animals, addAnimal, getAnimals, getAnimalById, setTerms, searchTerms
         }}>
             {props.children}
         </AnimalContext.Provider>
