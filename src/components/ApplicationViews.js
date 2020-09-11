@@ -19,15 +19,20 @@ export const ApplicationViews = (props) => {
     return (
         <>
             <AnimalProvider>
-                <Route path="/animals/:animalId(\d+)" render={
-                    props => <AnimalDetails {...props} />
-                } />
-                <Route exact path="/animals" render={
-                    props => <>
-                        <AnimalSearch/>
-                        <AnimalList {...props}/>
-                    </>
-                }/>
+                <LocationProvider>
+                    <Route path="/animals/:animalId(\d+)" render={
+                        props => <AnimalDetails {...props} />
+                    } />
+                    <Route path="/animals/edit/:animalId(\d+)" render={
+                        props => <AnimalForm {...props} />
+                    } />
+                    <Route exact path="/animals" render={
+                        props => <>
+                            <AnimalSearch/>
+                            <AnimalList {...props}/>
+                        </>
+                    }/>
+                </LocationProvider>
             </AnimalProvider>
 
 
